@@ -1,174 +1,233 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mehta Is Back</title><style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial, sans-serif;}
+<title>MEHTA IS BACK</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
 body{
-    background: radial-gradient(circle at center, #001a12, #000);
-    color:#fff;
-    overflow-x:hidden;
+  background:#050b12;
+  color:#fff;
+  overflow:hidden;
 }
 
+/* PARTICLE CANVAS */
+canvas{
+  position:fixed;
+  top:0;
+  left:0;
+  z-index:-1;
+}
+
+/* CONTAINER */
 .container{
-    text-align:center;
-    padding:40px 20px;
+  text-align:center;
+  padding:30px;
+  animation:fadeIn 1.5s ease;
 }
 
-/* ANIMATIONS */
-@keyframes slideRight{from{transform:translateX(-120%);opacity:0;}to{transform:translateX(0);opacity:1;}}
-@keyframes slideLeft{from{transform:translateX(120%);opacity:0;}to{transform:translateX(0);opacity:1;}}
-@keyframes zoomIn{from{transform:scale(0.4);opacity:0;}to{transform:scale(1);opacity:1;}}
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(40px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+/* LOGO */
+.logo{
+  width:90px;
+  height:90px;
+  margin:auto;
+  border-radius:25px;
+  background:linear-gradient(135deg,#00f5d4,#00bbf9);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-size:40px;
+  animation:glow 2s infinite alternate, float 3s infinite;
+}
+
 @keyframes glow{
-    0%{box-shadow:0 0 10px #00ff88;}
-    50%{box-shadow:0 0 40px #00ff88;}
-    100%{box-shadow:0 0 10px #00ff88;}
-}
-@keyframes pulse{
-    0%{transform:scale(1);} 
-    50%{transform:scale(1.05);} 
-    100%{transform:scale(1);} 
+  from{box-shadow:0 0 10px #00f5d4;}
+  to{box-shadow:0 0 30px #00f5d4;}
 }
 
-h1{font-size:64px;font-weight:900;letter-spacing:2px;}
-
-.mehta{animation:slideRight 1.2s ease forwards;}
-.isback{color:#00ff88;animation:slideLeft 1.2s ease forwards;}
-
-.bull{
-    width:220px;
-    margin:30px auto;
-    display:block;
-    animation:zoomIn 1.5s ease;
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
 }
 
-.join-btn{
-    display:inline-block;
-    margin:25px 0;
-    padding:18px 50px;
-    font-size:26px;
-    border-radius:60px;
-    background:linear-gradient(45deg,#00ff88,#00c3ff);
-    color:#000;
-    font-weight:bold;
-    text-decoration:none;
-    animation:glow 2s infinite, pulse 2s infinite;
+/* TITLE */
+h1{
+  margin-top:15px;
+  font-size:28px;
+  background:linear-gradient(90deg,#00f5d4,#00bbf9);
+  -webkit-background-clip:text;
+  color:transparent;
 }
 
-.subscribers{
-    font-size:44px;
-    margin:50px 0;
-    animation:zoomIn 1.5s ease;
+/* TICKER */
+.ticker{
+  margin:10px auto;
+  width:90%;
+  overflow:hidden;
+  white-space:nowrap;
+  border-top:1px solid rgba(255,255,255,0.1);
+  border-bottom:1px solid rgba(255,255,255,0.1);
 }
 
-.counter{color:#00ff88;font-weight:bold;}
+.ticker span{
+  display:inline-block;
+  padding:10px;
+  animation:scroll 10s linear infinite;
+}
 
-.features{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:20px;
-    margin-top:40px;
+@keyframes scroll{
+  0%{transform:translateX(100%);}
+  100%{transform:translateX(-100%);}
+}
+
+/* DESC */
+.desc{
+  margin:15px 0;
+  opacity:0.8;
+}
+
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+  margin:20px 0;
 }
 
 .card{
-    padding:20px;
-    border-radius:15px;
-    background:rgba(0,255,136,0.05);
-    border:1px solid rgba(0,255,136,0.4);
-    backdrop-filter: blur(10px);
-    transition:0.4s;
+  padding:15px;
+  border-radius:15px;
+  background:rgba(255,255,255,0.05);
+  backdrop-filter:blur(10px);
+  transition:0.3s;
 }
 
 .card:hover{
-    transform:translateY(-10px) scale(1.05);
-    box-shadow:0 0 25px #00ff88;
+  transform:translateY(-5px) scale(1.05);
+  background:rgba(0,255,200,0.1);
+}
+
+/* BUTTON */
+.btn{
+  display:block;
+  padding:15px;
+  border-radius:30px;
+  background:linear-gradient(90deg,#00f5d4,#00bbf9);
+  color:#000;
+  font-weight:bold;
+  text-decoration:none;
+  animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+  0%{box-shadow:0 0 0 rgba(0,255,200,0.4);}
+  50%{box-shadow:0 0 20px rgba(0,255,200,0.9);}
+  100%{box-shadow:0 0 0 rgba(0,255,200,0.4);}
 }
 
 .footer{
-    margin-top:60px;
-    font-size:14px;
-    opacity:0.7;
+  font-size:12px;
+  opacity:0.6;
+  margin-top:10px;
 }
+</style>
+</head>
 
-/* PARTICLES BACKGROUND */
-canvas{
-    position:fixed;
-    top:0;
-    left:0;
-    z-index:-1;
-}
+<body>
 
-</style></head><body><canvas id="bg"></canvas>
+<canvas id="particles"></canvas>
 
-<div class="container"><h1>
-<span class="mehta">MEHTA</span><br>
-<span class="isback">IS BACK</span>
-</h1><img src="WhatsApp Image 2026-04-29 at 00.09.02.jpeg" class="bull"><a href="https://t.me/+H0ZVwXJ5RIFlYzk9" class="join-btn">JOIN NOW FREE</a>
+<div class="container">
 
-<div class="subscribers">
-<span class="counter" id="count">0</span>+ Subscribers
-</div><a href="https://t.me/+H0ZVwXJ5RIFlYzk9" class="join-btn">JOIN NOW FREE</a>
+  <div class="">₹</div>
 
-<div class="features">
-    <div class="card">Accurate Calls</div>
-    <div class="card">Expert Analysis</div>
-    <div class="card">Fastest Updates</div>
-    <div class="card">100% Trusted</div>
-    <div class="card">Intraday Calls</div>
-    <div class="card">Market Analysis</div>
-    <div class="card">Real Time Alerts</div>
-    <div class="card">Free Premium Tips</div>
-</div><div class="footer">
-Disclaimer: Stock Market investments are subject to market risks.
-</div></div><script>
+  <h1>MEHTA IS BACK</h1>
 
-// COUNTER ANIMATION
-let count = document.getElementById("count");
-let target = 50000;
-let c = 0;
-let speed = target / 200;
+  <div class="ticker">
+    <span>NIFTY +0.85% ▲ | BANKNIFTY +1.2% ▲ | RELIANCE +0.5% ▲ | TATASTEEL -0.3% ▼</span>
+  </div>
 
-function updateCounter(){
-    if(c < target){
-        c += speed;
-        count.innerText = Math.floor(c).toLocaleString();
-        requestAnimationFrame(updateCounter);
-    } else {
-        count.innerText = "50,000";
-    }
-}
-updateCounter();
+  <div class="desc">
+    Live market updates, F&O setups, daily watchlist & smart trading insights.
+  </div>
 
-// PARTICLES BACKGROUND
-const canvas = document.getElementById("bg");
+  <div class="grid">
+    <div class="card">LIVE<br><small>Market</small></div>
+    <div class="card">F&O<br><small>Setups</small></div>
+    <div class="card">DAILY<br><small>Watchlist</small></div>
+    <div class="card">SMART<br><small>Trading</small></div>
+  </div>
+
+  <a href="YOUR_TELEGRAM_LINK" target="_blank" class="btn">
+    JOIN TELEGRAM
+  </a>
+
+  <div class="footer">
+    Educational purpose only. Market risk involved.
+  </div>
+
+</div>
+
+<script>
+// PARTICLE BACKGROUND
+const canvas = document.getElementById("particles");
 const ctx = canvas.getContext("2d");
+
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let particles = [];
+
 for(let i=0;i<80;i++){
-    particles.push({
-        x:Math.random()*canvas.width,
-        y:Math.random()*canvas.height,
-        r:Math.random()*2,
-        dx:Math.random()-0.5,
-        dy:Math.random()-0.5
-    });
+  particles.push({
+    x:Math.random()*canvas.width,
+    y:Math.random()*canvas.height,
+    r:Math.random()*2,
+    dx:(Math.random()-0.5),
+    dy:(Math.random()-0.5)
+  });
 }
 
-function animate(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle="#00ff88";
-    particles.forEach(p=>{
-        ctx.beginPath();
-        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-        ctx.fill();
-        p.x+=p.dx;
-        p.y+=p.dy;
-    });
-    requestAnimationFrame(animate);
-}
-animate();
+function draw(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fillStyle="#00f5d4";
+    ctx.fill();
 
-</script></body>
+    p.x+=p.dx;
+    p.y+=p.dy;
+
+    if(p.x<0||p.x>canvas.width) p.dx*=-1;
+    if(p.y<0||p.y>canvas.height) p.dy*=-1;
+  });
+
+  requestAnimationFrame(draw);
+}
+draw();
+
+// resize fix
+window.addEventListener("resize",()=>{
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+</script>
+
+</body>
 </html>
