@@ -8,56 +8,40 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family:'Poppins',sans-serif;
-}
-
 body{
+  margin:0;
+  font-family:'Poppins',sans-serif;
   background:#050b12;
-  color:#fff;
-  overflow:hidden;
-}
-
-/* PARTICLE CANVAS */
-canvas{
-  position:fixed;
-  top:0;
-  left:0;
-  z-index:-1;
+  color:white;
 }
 
 /* CONTAINER */
 .container{
   text-align:center;
-  padding:30px;
-  animation:fadeIn 1.5s ease;
-}
-
-@keyframes fadeIn{
-  from{opacity:0; transform:translateY(40px);}
-  to{opacity:1; transform:translateY(0);}
+  padding:20px;
 }
 
 /* LOGO */
 .logo{
-  width:90px;
-  height:90px;
+  width:100px;
+  height:100px;
   margin:auto;
   border-radius:25px;
-  background:linear-gradient(135deg,#00f5d4,#00bbf9);
   display:flex;
-  justify-content:center;
   align-items:center;
-  font-size:40px;
-  animation:glow 2s infinite alternate, float 3s infinite;
+  justify-content:center;
+  background:rgba(255,255,255,0.05);
+  animation:float 3s infinite;
+}
+
+.logo svg{
+  width:60px;
+  animation:glow 2s infinite alternate;
 }
 
 @keyframes glow{
-  from{box-shadow:0 0 10px #00f5d4;}
-  to{box-shadow:0 0 30px #00f5d4;}
+  from{filter:drop-shadow(0 0 5px #00f5d4);}
+  to{filter:drop-shadow(0 0 20px #00f5d4);}
 }
 
 @keyframes float{
@@ -67,166 +51,181 @@ canvas{
 
 /* TITLE */
 h1{
-  margin-top:15px;
-  font-size:28px;
   background:linear-gradient(90deg,#00f5d4,#00bbf9);
   -webkit-background-clip:text;
   color:transparent;
 }
 
-/* TICKER */
-.ticker{
-  margin:10px auto;
-  width:90%;
-  overflow:hidden;
-  white-space:nowrap;
-  border-top:1px solid rgba(255,255,255,0.1);
-  border-bottom:1px solid rgba(255,255,255,0.1);
-}
-
-.ticker span{
+/* COUNTER */
+.counter{
+  margin:12px 0;
+  font-size:16px;
+  font-weight:600;
+  color:#00f5d4;
+  position:relative;
   display:inline-block;
-  padding:10px;
-  animation:scroll 10s linear infinite;
 }
 
-@keyframes scroll{
-  0%{transform:translateX(100%);}
-  100%{transform:translateX(-100%);}
+.counter::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-5px;
+  width:0%;
+  height:2px;
+  background:#00f5d4;
+  animation:lineMove 2s infinite;
 }
 
-/* DESC */
-.desc{
-  margin:15px 0;
-  opacity:0.8;
-}
-
-/* GRID */
-.grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-  margin:20px 0;
-}
-
-.card{
-  padding:15px;
-  border-radius:15px;
-  background:rgba(255,255,255,0.05);
-  backdrop-filter:blur(10px);
-  transition:0.3s;
-}
-
-.card:hover{
-  transform:translateY(-5px) scale(1.05);
-  background:rgba(0,255,200,0.1);
+@keyframes lineMove{
+  0%{width:0%;}
+  50%{width:100%;}
+  100%{width:0%;}
 }
 
 /* BUTTON */
 .btn{
   display:block;
+  margin:20px auto;
+  width:80%;
   padding:15px;
   border-radius:30px;
   background:linear-gradient(90deg,#00f5d4,#00bbf9);
   color:#000;
   font-weight:bold;
   text-decoration:none;
-  animation:pulse 2s infinite;
+  transition:0.3s;
 }
 
-@keyframes pulse{
-  0%{box-shadow:0 0 0 rgba(0,255,200,0.4);}
-  50%{box-shadow:0 0 20px rgba(0,255,200,0.9);}
-  100%{box-shadow:0 0 0 rgba(0,255,200,0.4);}
+.btn:hover{
+  transform:scale(1.05);
 }
 
-.footer{
-  font-size:12px;
-  opacity:0.6;
-  margin-top:10px;
+/* GRID */
+.grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+.card{
+  padding:15px;
+  background:rgba(255,255,255,0.05);
+  border-radius:10px;
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:scale(1.05);
+  background:rgba(0,255,200,0.1);
+}
+
+/* CHART */
+.chart{
+  margin-top:20px;
+}
+
+/* PROFIT POPUP */
+#profitPopup{
+  position:fixed;
+  bottom:20px;
+  left:20px;
+  background:rgba(0,255,200,0.1);
+  border:1px solid #00f5d4;
+  padding:12px 16px;
+  border-radius:12px;
+  font-size:13px;
+  color:#00f5d4;
+  opacity:0;
+  transform:translateY(20px);
+  transition:0.5s;
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="particles"></canvas>
-
 <div class="container">
 
-  <div class="WhatsApp Image 2026-04-29 at 00.09.02.jpeg">₹</div>
+  <!-- LOGO -->
+  <div class="logo">
+    <svg viewBox="0 0 100 100">
+      <defs>
+        <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#00f5d4"/>
+          <stop offset="100%" stop-color="#00bbf9"/>
+        </linearGradient>
+      </defs>
+      <text x="50%" y="55%" text-anchor="middle" fill="url(#g)" font-size="50" font-weight="bold" dy=".3em">M</text>
+    </svg>
+  </div>
 
   <h1>MEHTA IS BACK</h1>
 
-  <div class="ticker">
-    <span>NIFTY +0.85% ▲ | BANKNIFTY +1.2% ▲ | RELIANCE +0.5% ▲ | TATASTEEL -0.3% ▼</span>
+  <!-- COUNTER -->
+  <div class="counter" id="counter">
+    👥 50,000+ Traders Joined
   </div>
 
-  <div class="desc">
-    Live market updates, F&O setups, daily watchlist & smart trading insights.
-  </div>
-
-  <div class="grid">
-    <div class="card">LIVE<br><small>Market</small></div>
-    <div class="card">F&O<br><small>Setups</small></div>
-    <div class="card">DAILY<br><small>Watchlist</small></div>
-    <div class="card">SMART<br><small>Trading</small></div>
-  </div>
-
+  <!-- TELEGRAM -->
   <a href="https://t.me/+H0ZVwXJ5RIFlYzk9" target="_blank" class="btn">
-    JOIN TELEGRAM
+    🚀 JOIN TELEGRAM
   </a>
 
-  <div class="footer">
-    Educational purpose only. Market risk involved.
+  <!-- CARDS -->
+  <div class="grid">
+    <div class="card">LIVE MARKET</div>
+    <div class="card">F&O SETUPS</div>
+    <div class="card">DAILY WATCHLIST</div>
+    <div class="card">SMART TRADING</div>
+  </div>
+
+  <!-- CHART -->
+  <div class="chart">
+    <iframe 
+      src="https://s.tradingview.com/widgetembed/?symbol=NSE:NIFTY&interval=5&theme=dark"
+      width="100%" height="300" frameborder="0">
+    </iframe>
   </div>
 
 </div>
 
+<!-- POPUP -->
+<div id="profitPopup"></div>
+
 <script>
-// PARTICLE BACKGROUND
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
+// COUNTER ANIMATION
+let target = 50000;
+let count = 0;
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let particles = [];
-
-for(let i=0;i<80;i++){
-  particles.push({
-    x:Math.random()*canvas.width,
-    y:Math.random()*canvas.height,
-    r:Math.random()*2,
-    dx:(Math.random()-0.5),
-    dy:(Math.random()-0.5)
-  });
+function animateCounter(){
+  if(count < target){
+    count += Math.ceil((target - count) / 20);
+    document.getElementById("counter").innerText =
+      `👥 ${count.toLocaleString()}+ Traders Joined`;
+    requestAnimationFrame(animateCounter);
+  }
 }
+animateCounter();
 
-function draw(){
-  ctx.clearRect(0,0,canvas.width,canvas.height);
-  particles.forEach(p=>{
-    ctx.beginPath();
-    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-    ctx.fillStyle="#00f5d4";
-    ctx.fill();
+// DEMO PROFIT POPUP
+const names=["Rahul","Amit","Vikas","Neha","Arjun"];
+function showProfit(){
+  const popup=document.getElementById("profitPopup");
+  const name=names[Math.floor(Math.random()*names.length)];
+  const amt=Math.floor(Math.random()*4000)+500;
 
-    p.x+=p.dx;
-    p.y+=p.dy;
+  popup.innerText=`${name} booked ₹${amt} (demo) 📊`;
 
-    if(p.x<0||p.x>canvas.width) p.dx*=-1;
-    if(p.y<0||p.y>canvas.height) p.dy*=-1;
-  });
+  popup.style.opacity="1";
+  popup.style.transform="translateY(0)";
 
-  requestAnimationFrame(draw);
+  setTimeout(()=>{
+    popup.style.opacity="0";
+    popup.style.transform="translateY(20px)";
+  },3000);
 }
-draw();
-
-// resize fix
-window.addEventListener("resize",()=>{
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-});
+setInterval(showProfit,4000);
 </script>
 
 </body>
